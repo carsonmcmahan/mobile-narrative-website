@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://kit.fontawesome.com/e729c6e4c5.js" crossorigin="anonymous"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="styleSheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+
+<body id="home">
+    <div>
+        <div class="row" id="header">
+            <div class='col-12'>
+                <center>
+                    <h1 id="nav-title"><i class="fa-solid fa-baseball"></i>Dodgers Stats: Last 50 Years</h1>
+                </center>
+            </div>
+        </div>
+        <div class="row" id='nav'>
+            <div class="col-3"></div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-house" id="icon"></i><a href="homePage.html">Home</a>
+                </center>
+            </div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-star" id="icon"></i><a href="statsPage.html">Stats</a>
+                </center>
+            </div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-landmark" id="icon"></i><a href="historyPage.html">History</a>
+                </center>
+            </div>
+            <div class="col-3"></div>
+        </div>
+
+        <!-- This JS creates a sticky nav bar when the user scrolls. 
+        Navbar stays on screen making it so the user does not have to 
+        scroll to the top to navigate between pages. Commented it out
+        because it does not really work with mobile layout -->
+        <script>
+            // window.onscroll = function() {myFunction()};
+            
+            // const navbar = document.getElementById("nav");
+            // const sticky = navbar.offsetTop;
+            
+            // function myFunction() {
+            //   if (window.pageYOffset >= sticky) {
+            //     navbar.classList.add("sticky")
+            //   } else {
+            //     navbar.classList.remove("sticky");
+            //   }
+            // }
+        </script>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8" id="info-goes-here">
+            <div>
+                <h1>Welcome to the Home Page!</h1>
+                <h2 id="titleAnimation">About My Website!</h2>
+                <div class="intro">
+                    <p id="about-webpage">
+                        My Mobile Narrative Website is about the Los Angeles Dodgers and their stats
+                        for
+                        the last 50 years,
+                        not including the 2022 season. I have always loved baseball from the time I could walk. I grew
+                        up
+                        going to Dodgers games and they have become my favorite team. I wanted to do my Mobile Narrative
+                        Website on something that I enjoy and know quit a bit about. Baseball, and especially the
+                        Dodgers,
+                        is something that I am very passionate about. I would also say that I know more than the average
+                        viewer but not as much as those die-hard fans. One specific question I would like to answer is
+                        why I
+                        did not include the 2022 season. I did not include it because I wanted data from all ready
+                        completed
+                        seasons. When going through each website I had found data for this assignment, the 2022 was not
+                        complete like the other seasons. Therefore, I just decided it best to leave it out for my
+                        website.
+                    </p>
+                    <p id="about-webpage">
+                        My data was simple to collect. I found a website where it had stats on the Dodgers since they
+                        were
+                        founded as a team. While it was not the office MLB website, I felt that the data was accurate
+                        and
+                        could be used. I did however use the MLB website to find data on those players who had received
+                        awards in the past 50 years. Lastly, I wanted to do something a little more fun than just straight
+                        up
+                        data on the team. I decided I wanted to find some information regarding the Dodgers rivalry with
+                        the
+                        San Francisco Giants. While it is not a lot of data, I believe it gets the point across.
+                        Unfortunately, most of the data is in the Giants favor.
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <h2 id="titleAnimation">World Series 2020 Highlights</h2>
+                <div class="container ">
+                    <center>
+                        <iframe class="responsive-iframe" src="https://www.youtube.com/embed/fPczbxJ9dhQ"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </center>
+                </div>
+                <center>
+                    <img alt="Dodger's Logo" class="img" src="https://assets-sports.thescore.com/baseball/team/26/logo.png">
+                </center>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</body>
+</html>

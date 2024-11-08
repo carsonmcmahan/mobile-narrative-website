@@ -1,0 +1,229 @@
+/* Nav Bar Styles */
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+#nav{
+    background-color: #005A9C;
+}
+
+#header{
+    background-color: #005A9C;
+}
+
+#nav-title{
+    font-family: 'Homemade Apple', cursive;
+    font-size: 40px;
+    color: #ffffff;
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Homemade Apple', cursive;
+    font-size: 25px;
+    margin: 100px;
+}
+
+a:hover{
+    color: red;
+    transition: 0.5s;
+
+    /* background-color:  gey;*/
+    /* border-radius: 5px; */
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/*Body Styles*/
+#info-goes-here{
+    background-color: white;
+}
+
+#graph-goes-here{
+    background-color: white;
+    padding-bottom: 20px;
+}
+
+#home{
+    background-image: url(https://pbs.twimg.com/media/ElYvRfDXgAU_9m1.jpg:large);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#icon{
+    color: #ffffff;
+    margin: 0;
+}
+
+#about-webpage{
+    text-align: justify;
+    text-indent: 50px;
+    font-size: 20px;
+    font-family: 'Anton', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h1{
+    font-size: 20px;
+    font-family: 'Homemade Apple', cursive;
+    font-style: normal;
+}
+
+/* Button style */
+
+button{
+    background-color: #005A9C;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: grey;
+    transition: 0.5;
+}
+
+/* used to make YouTube vidoe responsive */
+.container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56.25%;
+    /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* used for displaying text with a button */
+.about-webpage{
+    text-align: justify;
+    font-size: 20px;
+    font-family: 'Anton', sans-serif;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.intro{
+    border: 3px solid #005A9C;
+    border-radius: 25px;
+}
+
+/*H2 animation: changing color from blue to red*/
+#titleAnimation{
+    color: #005A9C;
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Homemade Apple', cursive;
+    animation-name: changeColors;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes changeColors {
+    0% {color: #005A9C;}
+    50% {color: red;}
+    100% {color: #005A9C;}
+}
+
+/* Form elements */
+label{
+    font-size: 25px;
+    color: red;
+    font-family: 'Anton', sans-serif;
+}
+
+#form-title{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+/* Table Styles */
+table, th, td{
+    border: 1px solid;
+    border-radius: 2px;
+}
+
+th{
+    font-family: 'Homemade Apple', cursive;
+    font-size: 20px;
+}
+
+td{
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    font-size: 18px;
+}
+
+/*Grid System*/
+tr:nth-child(even){background-color: #f2f2f2}
+/** Grid system - https://www.w3schools.com/css/css_rwd_grid.asp **/
+* {
+    box-sizing: border-box;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+ 
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+    /* border: 1px solid red; */
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/** Image - https://www.w3schools.com/css/css_rwd_grid.asp **/   
+.img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+/** Overflow (for tables) - https://www.w3schools.com/howto/howto_css_table_responsive.asp **/
+.overflow {
+    overflow-x:auto;
+}

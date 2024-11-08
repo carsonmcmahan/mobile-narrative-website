@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://kit.fontawesome.com/e729c6e4c5.js" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="utf-8">
+    <title>Stats Page</title>
+    <link rel="stylesheet" href="styleSheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" rel="stylesheet">
+</head>
+
+<body id="home">
+    <div>
+        <div class="row" id="header">
+            <div class='col-12'>
+                <center>
+                    <h1 id="nav-title"><i class="fa-solid fa-baseball"></i>Dodgers Stats: Last 50 Years</h1>
+                </center>
+            </div>
+        </div>
+        <div class="row" id="nav">
+            <div class="col-3"></div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-house" id="icon"></i><a href="homePage.html">Home</a>
+                </center>
+            </div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-star" id="icon"></i><a href="statsPage.html">Stats</a>
+                </center>
+            </div>
+            <div class="col-2">
+                <center>
+                    <i class="fa-solid fa-landmark" id="icon"></i><a href="historyPage.html">History</a>
+                </center>
+            </div>
+            <div class="col-3"></div>
+        </div>
+
+        <!-- This JS creates a sticky nav bar when the user scrolls. 
+        Navbar stays on screen making it so the user does not have to 
+        scroll to the top to navigate between pages. Commented it out
+        because it does not really work with mobile layout -->
+        <script>
+            // window.onscroll = function() {myFunction()};
+            
+            // const navbar = document.getElementById("nav");
+            // const sticky = navbar.offsetTop;
+            
+            // function myFunction() {
+            //   if (window.pageYOffset >= sticky) {
+            //     navbar.classList.add("sticky")
+            //   } else {
+            //     navbar.classList.remove("sticky");
+            //   }
+            // }
+        </script>
+    </div>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8" id="graph-goes-here">
+            <h1>Welcome to the Stats Page!</h1>
+            <!-- Scatter Graph information -->
+            <h2 id="titleAnimation">Dodgers Attendence Between 1971 - 2021</h2>
+            <div class="intro">
+                <p id="about-webpage">
+                    The scatter plot below represents the attendence for each season in the last 50 years. One
+                    conclution we can make is that the Dodgers are a very popular baseball team. However, when we look
+                    at this data, you may notice there is a slight incline.
+                    It seems the Dodgers have gotten more popular over the year with a few outliers. For example, the
+                    2020 season did not allow fans to physically go to the games due to the COVID 19 Pandemic. Becasue
+                    of the Pandemic, the 2021 season saw a drastic decrease in attendence. The 2019 season had a total
+                    of 3,974,309
+                    people attending home games. The 2021 season had a total of 2,804,693 attending home games.
+                    Attendence dropped over a million due to the pandemic.
+                </p>
+
+                <!-- This is where the scatterplot grah will be displayed -->
+                <div class="overflow">
+                    <center>
+                        <div id="scatter-graph"></div>
+                        <div class="col-12" id="tooltip-scatter"></div>
+                    </center>
+                </div>
+            </div>
+
+            <!-- Scatterplot graph -->
+            <script>
+                // set the dimensions and margins of the graph
+                var margin = { top: 10, right: 85, bottom: 60, left: 85 },
+                    width = 800 - margin.left - margin.right, //changed the width size
+                    height = 740 - margin.top - margin.bottom; //changed the height size
+
+                // append the svg object to the body of the page
+                var svg = d3.select("#scatter-graph")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform",
+                        "translate(" + margin.left + "," + margin.top + ")");
+
+
+                //adds a tooltip box at the bottom of the graph which explains what is in the data point
+                var tooltip = d3.select("#tooltip-scatter")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "3px")
+                    .style("border-radius", "10px")
+                    .style("padding", "10px")
+                    .style("font-size", "25px")
+
+                //added my own data
+                let data = [
+                    { attendence: 2804693, year: 2021 },
+                    { attendence: 0, year: 2020 },
+                    { attendence: 3974309, year: 2019 },
+                    { attendence: 3857500, year: 2018 },
+                    { attendence: 3765856, year: 2017 },
+                    { attendence: 3703312, year: 2016 },
+                    { attendence: 3764815, year: 2015 },
+                    { attendence: 3782337, year: 2014 },
+                    { attendence: 3743527, year: 2013 },
+                    { attendence: 3324246, year: 2012 },
+                    { attendence: 2935139, year: 2011 },
+                    { attendence: 3562320, year: 2010 },
+                    { attendence: 3761655, year: 2009 },
+                    { attendence: 3730553, year: 2008 },
+                    { attendence: 3857036, year: 2007 },
+                    { attendence: 3758545, year: 2006 },
+                    { attendence: 3603646, year: 2005 },
+                    { attendence: 3488283, year: 2004 },
+                    { attendence: 3138626, year: 2003 },
+                    { attendence: 3131255, year: 2002 },
+                    { attendence: 3017143, year: 2001 },
+                    { attendence: 2880242, year: 2000 },
+                    { attendence: 3095346, year: 1999 },
+                    { attendence: 3089222, year: 1998 },
+                    { attendence: 3319504, year: 1997 },
+                    { attendence: 3188454, year: 1996 },
+                    { attendence: 2766251, year: 1995 },
+                    { attendence: 2279355, year: 1994 },
+                    { attendence: 3170393, year: 1993 },
+                    { attendence: 2473266, year: 1992 },
+                    { attendence: 3348170, year: 1991 },
+                    { attendence: 3002396, year: 1990 },
+                    { attendence: 2944653, year: 1989 },
+                    { attendence: 2980262, year: 1988 },
+                    { attendence: 2797409, year: 1987 },
+                    { attendence: 3023208, year: 1986 },
+                    { attendence: 3264593, year: 1985 },
+                    { attendence: 3134824, year: 1984 },
+                    { attendence: 3510313, year: 1983 },
+                    { attendence: 3608881, year: 1982 },
+                    { attendence: 2381292, year: 1981 },
+                    { attendence: 3249287, year: 1980 },
+                    { attendence: 2860954, year: 1979 },
+                    { attendence: 3347845, year: 1978 },
+                    { attendence: 2955087, year: 1977 },
+                    { attendence: 2386301, year: 1976 },
+                    { attendence: 2539349, year: 1975 },
+                    { attendence: 2632474, year: 1974 },
+                    { attendence: 2136192, year: 1973 },
+                    { attendence: 1860858, year: 1972 },
+                    { attendence: 2064594, year: 1971 }
+                ];
+
+                // Add X axis
+                var x = d3.scaleLinear()
+                    .domain([1971, 2021]) //changed the domain size
+                    .range([0, width]);
+                svg.append("g")
+                    .attr("transform", "translate(0," + height + ")")
+                    .call(d3.axisBottom(x));
+
+                //Create a label for the X-axis
+                svg.append("text")
+                    .attr("class", "x label")
+                    .attr("text-anchor", "end")
+                    .attr("x", width - 300)
+                    .attr("y", height + 50)
+                    .text("Years")
+                    .style("font-size", 30);
+
+                // Add Y axis
+                var y = d3.scaleLinear()
+                    .domain([0, 4500000]) //changed the domain size
+                    .range([height, 0]);
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                //Create Label for Y-axis
+                svg.append("text")
+                    .attr("class", "y label")
+                    .attr("text-anchor", "end")
+                    .attr("y", - 85)
+                    .attr("x", - 250)
+                    .attr("dy", ".75em")
+                    .attr("transform", "rotate(-90)")
+                    .text("Attendence")
+                    .style("font-size", 30);
+
+                //Add a hover element
+                var mouseover = function (d) {
+                    tooltip
+                        .style("opacity", 1)
+                }
+
+                var mousemove = function (d) {
+                    tooltip
+                        .html("For the " + d.year + " season there was a total of " + d.attendence + " people that went to home games.")
+                        .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                        .style("top", (d3.mouse(this)[1]) + "px")
+                }
+
+                // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+                var mouseleave = function (d) {
+                    tooltip
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 0)
+                }
+                // Add dots
+                svg.append('g')
+                    .selectAll("dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("cx", function (d) { return x(d.year); })
+                    .attr("cy", function (d) { return y(d.attendence); })
+                    .attr("r", 5) //changed the radius size of the dot
+                    .style("fill", "purple") //changed the color of the dot
+                    .on("mouseover", mouseover)
+                    .on("mousemove", mousemove)
+                    .on("mouseleave", mouseleave)
+            </script>
+
+            <h2 id="titleAnimation">Runs Scored</h2>
+            <div class="intro">
+                <p id="about-webpage">
+                    The circle grpah below represents the number of runs scored in a single seaon. Multiple
+                    conclutions can be made
+                    however, since it is just raw data type, the the conclutions one may come up with will most
+                    likey be very broad.
+                    For example, during the 2021 season the Dodgers scored a total of 830 runs, which is the highest
+                    they have scored in the last 50 years.
+                    They only other time they scored over 800 runs was in 2006 with a total of 820. From this
+                    examination alone, for the 2021 season,
+                    teams performed very poorly on defense again the Dodgers. Another conclution that could be made
+                    for the 2021 season is that the Dodgers
+                    had very alive bats. There on base percentage was high thus averaging more runs than normal.
+                </p>
+                <p id="about-webpage">
+                    Another example for this data would be for the 1981 season, the Dodgers scored 450 runs, which
+                    is the lowest amout of runs the Dodgers scored in the last 50 years. Again, we can only make broad
+                    conclutions.
+                    However, we can say that the Dodgers on base percentage was very low this partiuclar season. We can
+                    also make the
+                    conclution that the opposing team just performed very well on defense.
+                </p>
+
+                <!-- This is where the circle graph is going to be displayed -->
+                <div class="overflow">
+                    <center>
+                        <div id="circle-graph"></div>
+                        <div class="col-12">
+                            <div id="tooltip-circle"></div>
+                        </div>
+                    </center>
+                </div>
+            </div>
+
+            <!-- Circle graph -->
+            <script>
+                // set the dimensions and margins of the graph
+                var margin = { top: 100, right: 0, bottom: 100, left: 0 },
+                    width = 700 - margin.left - margin.right,
+                    height = 700 - margin.top - margin.bottom,
+                    innerRadius = 90,
+                    outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
+
+                // append the svg object
+                var svg = d3.select("#circle-graph")
+                    .append("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
+
+                //tooltip to display graph information
+                var tooltipCircle = d3.select("#tooltip-circle")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "3px")
+                    .style("border-radius", "10px")
+                    .style("padding", "10px")
+                    .style("font-size", "25px")
+
+                //data
+                let dataTwo = [
+                    { Year: "2021", Runs: "830" },
+                    { Year: "2020", Runs: "349" },
+                    { Year: "2019", Runs: "886" },
+                    { Year: "2018", Runs: "804" },
+                    { Year: "2017", Runs: "540" },
+                    { Year: "2016", Runs: "725" },
+                    { Year: "2015", Runs: "667" },
+                    { Year: "2014", Runs: "718" },
+                    { Year: "2013", Runs: "645" },
+                    { Year: "2012", Runs: "637" },
+                    { Year: "2011", Runs: "644" },
+                    { Year: "2010", Runs: "667" },
+                    { Year: "2009", Runs: "780" },
+                    { Year: "2008", Runs: "700" },
+                    { Year: "2007", Runs: "735" },
+                    { Year: "2006", Runs: "820" },
+                    { Year: "2005", Runs: "685" },
+                    { Year: "2004", Runs: "761" },
+                    { Year: "2003", Runs: "576" },
+                    { Year: "2002", Runs: "713" },
+                    { Year: "2001", Runs: "758" },
+                    { Year: "2000", Runs: "798" },
+                    { Year: "1999", Runs: "793" },
+                    { Year: "1998", Runs: "669" },
+                    { Year: "1997", Runs: "742" },
+                    { Year: "1996", Runs: "703" },
+                    { Year: "1995", Runs: "634" },
+                    { Year: "1994", Runs: "532" },
+                    { Year: "1993", Runs: "675" },
+                    { Year: "1992", Runs: "548" },
+                    { Year: "1991", Runs: "665" },
+                    { Year: "1990", Runs: "728" },
+                    { Year: "1989", Runs: "554" },
+                    { Year: "1988", Runs: "628" },
+                    { Year: "1987", Runs: "635" },
+                    { Year: "1986", Runs: "638" },
+                    { Year: "1985", Runs: "682" },
+                    { Year: "1984", Runs: "580" },
+                    { Year: "1983", Runs: "654" },
+                    { Year: "1982", Runs: "691" },
+                    { Year: "1981", Runs: "450" },
+                    { Year: "1980", Runs: "663" },
+                    { Year: "1979", Runs: "739" },
+                    { Year: "1978", Runs: "727" },
+                    { Year: "1977", Runs: "769" },
+                    { Year: "1976", Runs: "608" },
+                    { Year: "1975", Runs: "648" },
+                    { Year: "1974", Runs: "798" },
+                    { Year: "1973", Runs: "675" },
+                    { Year: "1972", Runs: "584" },
+                    { Year: "1971", Runs: "663" }
+                ];
+
+                console.log(dataTwo);
+                // X scale: common for 2 data series
+                var x = d3.scaleBand()
+                    .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
+                    .align(0)                  // This does nothing
+                    .domain(dataTwo.map(function (d) { return d.Year; })); // The domain of the X axis is the list of states.
+
+                // Y scale outer variable
+                var y = d3.scaleRadial()
+                    .range([innerRadius, outerRadius])   // Domain will be define later.
+                    .domain([0, 900]); // Domain of Y is from 0 to the max seen in the data
+
+                var mouseover = function (d) {
+                    tooltipCircle
+                        .style("opacity", 1)
+                    console.log("hello world")
+                }
+
+                var mousemove = function (d) {
+                    tooltipCircle
+                        .html("A total of " + d.Runs + " runs were scored in " + d.Year)
+                        .style("left", (d3.mouse(this)[0] + 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                        .style("top", (d3.mouse(this)[1]) + "px")
+                }
+
+                // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+                var mouseleave = function (d) {
+                    tooltipCircle
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 0)
+                }
+
+                // Add the bars
+                svg.append("g")
+                    .selectAll("path")
+                    .data(dataTwo)
+                    .enter()
+                    .append("path")
+                    .attr("fill", "#005A9C")
+                    .attr("class", "yo")
+                    .attr("d", d3.arc()     // imagine your doing a part of a donut plot
+                        .innerRadius(innerRadius)
+                        .outerRadius(function (d) { return y(d['Runs']); })
+                        .startAngle(function (d) { return x(d.Year); })
+                        .endAngle(function (d) { return x(d.Year) + x.bandwidth(); })
+                        .padAngle(0.01)
+                        .padRadius(innerRadius))
+                        .on("mouseover", mouseover)
+                        .on("mousemove", mousemove)
+                        .on("mouseleave", mouseleave)
+
+                // Add the labels
+                svg.append("g")
+                    .selectAll("g")
+                    .data(dataTwo)
+                    .enter()
+                    .append("g")
+                    .attr("text-anchor", function (d) { return (x(d.Year) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+                    .attr("transform", function (d) { return "rotate(" + ((x(d.Year) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")" + "translate(" + (y(d['Runs']) + 10) + ",0)"; })
+                    .append("text")
+                    .text(function (d) { return (d.Year) })
+                    .attr("transform", function (d) { return (x(d.Year) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+                    .style("font-size", "18px")
+                    .attr("alignment-baseline", "middle")
+            </script>
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+</html>
